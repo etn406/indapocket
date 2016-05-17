@@ -1,0 +1,16 @@
+{
+  "name": "in-da-pocket",
+  "productName": "In Da Pocket",
+  "version": "1.0.0",
+  "description": "Download video/audio from Youtube and more",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "author": "Étienne Gauvin",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron-prebuilt": "^1.0.1",
+    "youtube-dl": "^1.11.1"
+  }
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>youtube-dl</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <form class="dl" action="">
+      
+      <fieldset>
+        <legend>URL</legend>
+        <label for="url">
+          <input type="url" id="url" name="url" placeholder="http://" required /><!--
+       --><button type="button" title="Paste" name="url-paste">Paste</button>
+        </label>
+        
+        <!-- <label for="is-playlist">
+          <input type="checkbox" id="is-playlist" name="is-playlist" />
+          Is a Playlist
+        </label> -->
+      </fieldset>
+      
+      
+      <fieldset>
+        <legend>Output folder</label></legend>
+        <label for="dir">
+          <input id="dir" name="dir" type="text" value="./" required /><!--
+       --><button type="button" title="Select output folder" name="dir-select">Select</button>
+        </label>
+      </fieldset>
+      
+      <output></output>
+      
+      <button type="submit">Télécharger</button>
+      
+      <progress id="progress" value="0" max="100"></progress>
+    </form>
+  </body>
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+  </script>
+</html>

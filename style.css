@@ -1,0 +1,124 @@
+@font-face {
+	font-family: "Monoisome";
+	src: url("./monoisome-regular.ttf");
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	padding: 20px;
+	background-color: #343434;
+	color: white;
+	font-family: "Monoisome", sans-serif;
+	font-size: medium;
+}
+
+html {
+	box-sizing: border-box;
+}
+
+* {
+	box-sizing: inherit;
+}
+
+
+::selection {
+	background-color: transparent;
+}
+
+fieldset {
+	border-style: solid;
+	border-radius: 3px;
+	border-color: rgba(0, 0, 0, 0.3);
+	margin-bottom: 1em;
+	padding: 1em;
+}
+
+label {
+	display: block;
+}
+
+label:not(:last-child),
+output {
+	margin-bottom: 1em;
+}
+
+label, legend {
+	color: #E3E3E3;
+}
+
+input,
+output {
+	display: inline-block;
+}
+
+button {
+	background-color: #F2F2F2;
+	opacity: 0.8;
+}
+
+button:hover,
+button:focus {
+	cursor: pointer;
+	opacity: 1;
+}
+
+input[type="text"],
+input[type="url"],
+button,
+output {
+	padding: 10px;
+	font-size: inherit;
+	font-family: inherit;
+	border: 0;
+	outline: 0;
+	border-radius: 3px;
+	transition: 100ms ease-in-out;
+}
+
+input[type="text"],
+input[type="url"],
+output {
+	background-color: rgba(0, 0, 0, 0.3);
+	color: white;
+	width: 400px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0; 
+}
+
+input + button {
+	background-color: #004D95;
+	color: white;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0; 
+}
+
+button[type="submit"] {
+	background-color: #59B335;
+}
+
+progress {
+	display: none;
+}
+
+output {
+	display: block;
+	width: 100%;
+}
+
+output:empty {
+	display: none;
+}
+
+output.ended {
+	color: #73E646;
+}
+
+output.err {
+	color: #E64646;
+}
+
+input::selection,
+output::selection {
+	background-color: black;
+}

@@ -1,66 +1,49 @@
 const electron = require('electron')
-// Module to control application life.
 const app = electron.app
-// Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
+const ipcMain = require('electron').ipcMain
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+require('electron-reload')(__dirname)
 
-function createWindow () {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({
-    title: "In Da Pocket",
-    width: 650,
-    height: 400,
-    useContentSize: true,
-    resizable: false,
-    fullscreenable: false,
-    autoHideMenuBar: true
-  })
+let window
 
-  // and load the index.html of the app.
-  mainWindow.loadURL(`file://${__dirname}/index.html`)
+/**
+ * L'application est prête à être lancée.
+ */
+app.on('ready', () => {
 
-  // Open the DevTools.
-  //mainWindow.webContents.openDevTools()
+    window = new BrowserWindow({
+        title: app.getName(),
+        width: 800,
+        height: 660,
+        useContentSize: true,
+        resizable: true,
+        fullscreenable: false,
+        autoHideMenuBar: true
+    })
 
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null
-  })
-}
+    window.loadURL(`file://${__dirname}/index.html`)
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+    window.webContents.openDevTools()
 
-// Quit when all windows are closed.
-app.on('window-all-closed', function () {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+    window.on('closed', () => app.quit())
+
 })
 
-app.on('activate', function () {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow()
-  }
+/**
+ * Détecter l'évènement de focus de la fenêtre par l'utilisateur
+ */
+app.on('browser-window-focus', (event) => {
+
+    window.webContents.send('window-focus')
+
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+/**
+ * Retourne le répertoire de téléchargement par défaut au script de rendu
+ */
+ipcMain.on('get-user-downloads-path', (event, arg) => {
 
-const ipc = require('electron').ipcMain
+    event.sender.send('user-downloads-path', app.getPath('downloads'))
 
-/*ipc.on('', function () {
-})*/
+})

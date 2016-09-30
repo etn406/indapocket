@@ -1,0 +1,276 @@
+$main-color: #FE5368;
+$background-color: #EEE;
+
+$gutter: 20px;
+
+@keyframes blinking-dot {
+    000% { opacity: 0.2 }
+    020% { opacity: 1.0 }
+    100% { opacity: 0.2 }
+}
+
+html {
+	box-sizing: border-box;
+
+	*, *:after, *:before {
+		box-sizing: inherit;
+	}
+}
+
+body {
+	margin: 0;
+	padding: 0 $gutter;
+	background-color: $background-color;
+	font-family: sans-serif;
+	font-size: large;
+	height: 100%;	
+}
+
+@mixin big-button($color: $main-color) {
+	background-color: $color;
+	border: none;
+	border-bottom: 2px solid darken($color, 20%);
+	color: white;
+	text-transform: uppercase;
+	font-size: small;
+	font-weight: bold;
+	padding: ($gutter / 2);
+	outline: none;
+
+	&:hover, &:focus {
+		cursor: pointer;
+		background-color: lighten($color, 5%);
+	}
+
+	&:active {
+		border-bottom: none;
+		border-top: 2px solid $background-color;
+	}
+}
+
+.blinking-dots {
+	span {
+		animation: blinking-dot 0.9s infinite;
+		animation-fill-mode: both;
+	}
+
+	span:nth-child(2) {
+		animation-delay: 0.3s;
+	}
+
+	span:nth-child(3) {
+		animation-delay: 0.6s;
+	}
+}
+
+fieldset {
+	background-color: white;
+	border: 2px solid $main-color;
+	margin: $gutter 0;
+
+	legend {
+		color: white;
+		background-color: $main-color;
+		font-weight: bold;
+		font-size: small;
+		padding: 2px 0.5em;
+	}
+
+	label {
+		display: flex;
+
+		input[type="text"],
+		input[type="url"] {
+			flex: 1;
+		}
+	}
+
+	input, button {
+		border: none;
+		background-color: transparent;
+		font-family: inherit;
+		font-size: inherit;
+		color: gray;
+
+		&:focus, &:hover {
+			outline: none;
+			color: black;
+		}
+	}
+
+	button {
+		&:focus, &:hover {
+			cursor: pointer;
+		} 
+	}
+
+	> button {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		margin: 0;
+	}
+}
+
+.select-format {
+	max-height: 10em;
+	overflow-y: scroll;
+
+	table {
+		width: 100%;
+		border-collapse: collapse;
+
+		th {
+			font-size: small;
+			text-transform: uppercase;
+			text-align: left;
+			padding: ($gutter / 2);
+			color: $main-color;
+			border-bottom: 2px solid $main-color;
+		}
+		
+		tbody {
+
+			tr {
+				td {
+					font-size: medium;
+					vertical-align: middle;
+					padding: ($gutter / 2);
+					border-bottom: 2px solid darken($background-color, 5%);
+				}
+
+				&:not(.selected):not(.message):hover {
+					background-color: darken($background-color, 5%);
+					cursor: pointer;
+				}
+
+				&.selected {
+					td {
+						color: white;
+						background-color: $main-color;
+						border-color: $main-color;
+					}
+				}
+
+				&:last-child td {
+					border-bottom: none;
+				}
+			}
+		}
+	}
+}
+
+div.info {
+	margin: $gutter 0;
+	display: flex;
+
+	button {
+		@include big-button;
+	}
+
+	> div {
+		flex: 1;
+
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		min-height: ($gutter + 18px);
+		border: 2px solid $main-color;
+		background-color: $main-color;
+		color: white;
+
+		margin: 0;
+		margin-left: $gutter;
+
+		p {
+			margin: 0;
+			padding: ($gutter / 2);
+		}
+
+		img {
+			height: 100%;
+			max-height: 4em;
+			background-color: $background-color;
+		}
+	}
+}
+
+button[type="submit"] {
+
+	@include big-button;
+
+	width: 100%;
+
+}
+
+#downloading {
+	display: none;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+
+	.background, .foreground {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+	}
+
+	background-color: black;
+
+	.background {
+		//background-image: url("");
+		background-size: cover;
+		background-position: center center;
+		-webkit-filter: blur(10px); 
+		filter: blur(10px);
+	}
+
+	.foreground {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+
+		> div {
+			width: 50%;
+		}
+
+		output {
+			display: block;
+			font-size: large;
+			color: white;
+			margin-bottom: $gutter;
+			background-color: transparentize(black, 0.5);
+			padding: $gutter;
+			line-height: 1.5em;
+
+			p {
+				margin: 0;
+			}
+		}
+	}
+
+	.progressbar {
+		width: 100%;
+		background-color: transparentize(#FFF, 0.5);
+		position: relative;
+		height: 4px;
+
+		.value {
+			position: absolute;
+			z-index: 1;
+			background-color: #FFF;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			width: 0%;
+			box-shadow: 0 0 10px 1px transparentize(#FFF, 0.5);
+			transition: 1s ease-out;
+		}
+	}
+}

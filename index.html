@@ -1,44 +1,126 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>youtube-dl</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
-  </head>
-  <body>
-    <form class="dl" action="">
-      
-      <fieldset>
-        <legend>URL</legend>
-        <label for="url">
-          <input type="url" id="url" name="url" placeholder="http://" required /><!--
-       --><button type="button" title="Paste" name="url-paste">Paste</button>
-        </label>
-        
-        <!-- <label for="is-playlist">
-          <input type="checkbox" id="is-playlist" name="is-playlist" />
-          Is a Playlist
-        </label> -->
-      </fieldset>
-      
-      
-      <fieldset>
-        <legend>Output folder</label></legend>
-        <label for="dir">
-          <input id="dir" name="dir" type="text" value="./" required /><!--
-       --><button type="button" title="Select output folder" name="dir-select">Select</button>
-        </label>
-      </fieldset>
-      
-      <output></output>
-      
-      <button type="submit">Télécharger</button>
-      
-      <progress id="progress" value="0" max="100"></progress>
-    </form>
-  </body>
-  <script>
-    // You can also require other files to run in this process
-    require('./renderer.js')
-  </script>
+    <head>
+        <meta charset="UTF-8">
+        <title>Indapocket</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
+    <body>
+        <form class="dl" action="">
+
+            <fieldset>
+                <legend>
+                    URL
+                </legend>
+
+                <label for="url">
+                    <input
+                        type="url"
+                        id="url"
+                        name="url"
+                        placeholder="http://"
+                        required
+                    />
+                    <button type="button" title="Paste" name="url-paste">
+                        &#9111;
+                    </button>
+                </label>
+
+                <!-- <label for="is-playlist">
+                <input type="checkbox" id="is-playlist" name="is-playlist" />
+                Is a Playlist
+                </label> -->
+            </fieldset>
+
+            <div class="info">
+                <button type="button" name="get-info">
+                    Get info
+                </button>
+
+                <div>
+                    <p>No information yet.</p>
+                </div>
+            </div>
+
+            <fieldset>
+                <legend>Format</legend>
+
+                <div class="select-format">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ext</th>
+                                <th>Format</th>
+                                <th>Audio</th>
+                                <th>Video</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr class="message">
+                                <td colspan="4">
+                                    <em>Nothing to show yet</em>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </fieldset>
+
+            <fieldset class="downloads-folder">
+                <legend>
+                    Download folder
+                </legend>
+
+                <button type="button" title="Change the downloads path" name="change-downloads-path" >
+                    <output id="downloads-folder">???</output>
+    
+                    <span>&#128393;</span>
+                </button>
+            </fieldset>
+
+            <fieldset>
+                <legend>
+                    File name
+                </legend>
+
+                <label for="filename">
+                    <input
+                        type="text"
+                        id="filename"
+                        name="filename"
+                        placeholder="(optional)"
+                    />
+                </label>
+
+            </fieldset>
+
+            <button type="submit">
+                Download
+            </button>
+
+        </form>
+
+        <div id="downloading">
+            <div class="background"></div>
+            <div class="foreground">
+                <div>
+                    <output>
+                        <p class="info"></p>
+                        <p class="size">
+                            Download starting<span class="blinking-dots"><span>.</span><span>.</span><span>.</span></span>
+                        </p>
+                    </output>
+                    <div class="progressbar">
+                        <div class="value"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            window.$ = require('jquery')
+            require('./renderer.js')
+        </script>
+    </body>
 </html>
